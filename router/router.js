@@ -12,6 +12,7 @@ router.get("/purchase",getcontroller.all_purchase_Data);
 router.get("/todaypurchase",getcontroller.todaypurchase);
 router.get("/todaypurchasecount",getcontroller.todaypurchasecount);
 router.get("/totalpurchasecount",getcontroller.totalpurchasecount);
+router.get("/todaysaleamount",getcontroller.todaysaleamount);
 //
 router.get("/customer",getcontroller.all_customer_Data);
 router.get("/distributor",getcontroller.all_distributor_Data);

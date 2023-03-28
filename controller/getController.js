@@ -5,6 +5,7 @@ const distributoreModel = require("../model/distributorModel");
 const inventoryModel = require("../model/inventoryModel");
 const medicinesModel = require("../model/medicinemodel");
 const usersModel = require("../model/userModel");
+const { reset } = require("nodemon");
 var datetime = new Date();
 // const currentdate = datetime.toISOString().slice(0,10)
 var day = ("0" + datetime.getDate()).slice(-2);
@@ -56,6 +57,7 @@ const all_distributor_Data = async (req,res) => {
 const all_inventory_Data = async (req,res) => {
     try {
         const user =await inventoryModel.find();
+        
         res.json(user);
         console.log('All customer Products');
         console.log(user);
@@ -155,7 +157,7 @@ const todaysalecount = async (req,res) => {
 // count purchase today
 const todaypurchasecount = async (req,res) => {
     try {
-        const user =await purchaseModel.find({"todaysalecount.purchaseDate": currentDate}).countDocuments();
+        const user =await purchaseModel.find({"distributor.purchaseDate": currentDate}).countDocuments();
         res.json(user);
         console.log('All Products');
         console.log(user);
@@ -172,6 +174,56 @@ const totalsalecount = async (req,res) => {
         res.json(user);
         console.log('All Products');
         console.log(user);
+    } catch (e) {
+        console.log(e);
+        
+    }
+
+};
+// today sale total amount
+const todaysaleamount = async (req,res) => {
+    try {
+        const user =await salesModel.find({"customer.saleDate": currentDate});
+        
+        // const user =  (await salesModel.aggregate([{$group:{_id: "$customer.saleDate" },{"$customer.saleDate": currentDate}}]));
+        // const user = await salesModel.aggregate([{
+        //     $unwind: "$medicine"
+        //   },
+        //   {
+        //     $match: {
+        //       "customer.saleDate": "28-03-2023"
+        //     }
+        //   },
+        //   {
+        //     $group: {
+        //       _id: "$customer.saleDate",
+        //       value: {
+        //         $sum:"$medicine.price"
+        //       }
+        //     }
+        //   },
+        //   {
+        //     $project: {
+        //       _id: 0,
+        //       totalPrice: "$value"
+        //     }
+        //   }, ])
+        // let sales = [[1, 2, 3], [2, 3, 4], [3], [4, 4], [5, 6]];
+
+let result = user.reduce((price, sale) => {
+//   console.log(`price: ${price}, medicines: ${medicines}`)
+  let itemPrice = sale.medicine.reduce((price, nextMed) => {
+    console.log(`mPrice: ${price}, mArray: ${nextMed.price}`)
+    return price + nextMed.price;
+  }, 0);
+//   console.log(`itemPrice: ${itemPrice}`)
+  return price + itemPrice;
+}, 0);
+
+console.log(result);
+        res.json(result)
+        // console.log('All Products');
+        console.log(user );
     } catch (e) {
         console.log(e);
         
@@ -221,5 +273,6 @@ module.exports = {
     totalsalecount,
     totalpurchasecount,
     todaysale,
-    todaypurchase
+    todaypurchase,
+    todaysaleamount
 }

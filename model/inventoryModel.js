@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
    
-    medicineId: String,
-    quatity: Number
+    medicinename: String,
+    stock: Number,
+    description: String
 });
 
 module.exports = mongoose.model("inventory",userSchema);

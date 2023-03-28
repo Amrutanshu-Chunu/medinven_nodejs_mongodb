@@ -8,6 +8,5 @@ const numberschema = mongoose.Schema({
     totalprofit: Number,
     todaypurchase: Number,
     lifetimepurchase: Number,
-
 });
 module.exports = mongoose.model("inventoryData", numberschema);
