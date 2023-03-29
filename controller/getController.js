@@ -230,6 +230,54 @@ console.log(result);
     }
 
 };
+// today sale total amount
+const todaypurchaseamount = async (req,res) => {
+    try {  
+
+        const user = await purchaseModel.aggregate([{
+            $unwind: "$medicine"
+          },
+          {
+            $match: {
+              "distributor.purchaseDate": currentDate
+            }
+          },
+          {
+            $group: {
+              _id: "$distributor.purchaseDate",
+              value: {
+                $sum:"$medicine.price"
+              }
+            }
+          },
+          {
+            $project: {
+              _id: 0,
+              totalPrice: "$value"
+            }
+          }, ])
+       
+//    const user =await purchaseModel.find({"distributor.purchaseDate": currentDate});
+// let result = user.reduce((price, purchase) => {
+//   console.log(`price: ${price}, medicines: ${medicines}`)
+//   let itemPrice = purchase.medicine.reduce((price, nextMed) => {
+//     console.log(`mPrice: ${price}, mArray: ${nextMed.price}`)
+//     return price + nextMed.price;
+//   }, 0);
+//   console.log(`itemPrice: ${itemPrice}`)
+//   return price + itemPrice;
+// }, 0);
+
+// console.log(result);
+        res.json(user)
+        // console.log('All Products');
+        console.log(user );
+    } catch (e) {
+        console.log(e);
+        
+    }
+
+};
 // count purchase total
 const totalpurchasecount = async (req,res) => {
     try {
@@ -274,5 +322,6 @@ module.exports = {
     totalpurchasecount,
     todaysale,
     todaypurchase,
-    todaysaleamount
+    todaysaleamount,
+    todaypurchaseamount
 }
