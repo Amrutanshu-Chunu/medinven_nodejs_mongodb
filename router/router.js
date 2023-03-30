@@ -9,12 +9,14 @@ router.get("/todaysale",getcontroller.todaysale);
 router.get("/todaysalecount",getcontroller.todaysalecount);
 router.get("/totalsalecount",getcontroller.todaysalecount);
 router.get("/todaysaleamount",getcontroller.todaysaleamount);
+router.get("/totalsaleamount",getcontroller.totalsaleamount);
 //purchase
 router.get("/purchase",getcontroller.all_purchase_Data);
 router.get("/todaypurchase",getcontroller.todaypurchase);
 router.get("/todaypurchasecount",getcontroller.todaypurchasecount);
 router.get("/totalpurchasecount",getcontroller.totalpurchasecount);
 router.get("/todaypurchaseamount",getcontroller.todaypurchaseamount);
+router.get("/totalpurchaseamount",getcontroller.totalpurchaseamount);
 //
 router.get("/customer",getcontroller.all_customer_Data);
 router.get("/distributor",getcontroller.all_distributor_Data);
@@ -36,8 +38,9 @@ router.put("/update:userId",postcontroller.edit_single_Data);
 router.delete("/delete:userId");
 //Search
 router.get("/purchase/search/:key",searchController.search_purchase_Name_PDate_Invoice);
-router.get("/purchase/search/phone/:number",searchController.search_purchase_Number);
+router.get("/purchase/search/phone/:key",searchController.search_purchase_Number);
+router.get("/purchase/medicine/search/:key",searchController.search_purchase_Medicine_name_batchcode_expDate);
 router.get("/sale/search/:key",searchController.search_sale_Customer_Name_SaleDate);
-router.get("/sale/search/phone/:number",searchController.search_customer_Number);
+router.get("/sale/search/phone/:key",searchController.search_customer_Number);
 
 module.exports = router;

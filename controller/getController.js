@@ -180,48 +180,33 @@ const totalsalecount = async (req,res) => {
     }
 
 };
-// today sale total amount
-const todaysaleamount = async (req,res) => {
+// today sale  amount
+const totalsaleamount = async (req,res) => {
     try {
-        const user =await salesModel.find({"customer.saleDate": currentDate});
+        // const user =await salesModel.find({"customer.saleDate": currentDate});
         
-        // const user =  (await salesModel.aggregate([{$group:{_id: "$customer.saleDate" },{"$customer.saleDate": currentDate}}]));
-        // const user = await salesModel.aggregate([{
-        //     $unwind: "$medicine"
-        //   },
-        //   {
-        //     $match: {
-        //       "customer.saleDate": "28-03-2023"
-        //     }
-        //   },
-        //   {
-        //     $group: {
-        //       _id: "$customer.saleDate",
-        //       value: {
-        //         $sum:"$medicine.price"
-        //       }
-        //     }
-        //   },
-        //   {
-        //     $project: {
-        //       _id: 0,
-        //       totalPrice: "$value"
-        //     }
-        //   }, ])
-        // let sales = [[1, 2, 3], [2, 3, 4], [3], [4, 4], [5, 6]];
-
-let result = user.reduce((price, sale) => {
-//   console.log(`price: ${price}, medicines: ${medicines}`)
-  let itemPrice = sale.medicine.reduce((price, nextMed) => {
-    console.log(`mPrice: ${price}, mArray: ${nextMed.price}`)
-    return price + nextMed.price;
-  }, 0);
-//   console.log(`itemPrice: ${itemPrice}`)
-  return price + itemPrice;
-}, 0);
-
-console.log(result);
-        res.json(result)
+        // const user =  (await salesModel.aggregate([{$group:{_id: "$customer.saleDate" },{"$customer.saleDate": currentDate}}])); 
+        const user = await salesModel.aggregate([
+            {
+                $unwind: "$medicine"
+              },
+              {
+                $group: {
+                  _id: 0,
+                  value: {
+                    $sum: {
+                      "$toDecimal": "$medicine.price"
+                    }
+                  }
+                }
+              },
+              {
+                $project: {
+                  _id: 0,
+                  totalPrice: "$value"
+                }
+              }, ])
+        res.json(user)
         // console.log('All Products');
         console.log(user );
     } catch (e) {
@@ -230,7 +215,93 @@ console.log(result);
     }
 
 };
-// today sale total amount
+// today sale  amount
+const todaysaleamount = async (req,res) => {
+    try {
+        // const user =await salesModel.find({"customer.saleDate": currentDate});
+        
+        // const user =  (await salesModel.aggregate([{$group:{_id: "$customer.saleDate" },{"$customer.saleDate": currentDate}}])); 
+        const user = await salesModel.aggregate([{
+            $unwind: "$medicine"
+          },
+          {
+            $match: {
+              "customer.saleDate": currentDate
+            }
+          },
+          {
+            $group: {
+              _id: "$customer.saleDate",
+              value: {
+                $sum:{
+                    "$toDecimal": "$medicine.price"
+                  }
+              }
+            }
+          },
+          {
+            $project: {
+              _id: 0,
+              totalPrice: "$value"
+            }
+          }, ])
+        // let sales = [[1, 2, 3], [2, 3, 4], [3], [4, 4], [5, 6]];
+
+// let result = user.reduce((price, sale) => {
+// //   console.log(`price: ${price}, medicines: ${medicines}`)
+//   let itemPrice = sale.medicine.reduce((price, nextMed) => {
+//     console.log(`mPrice: ${price}, mArray: ${nextMed.price}`)
+//     return price + nextMed.price;
+//   }, 0);
+// //   console.log(`itemPrice: ${itemPrice}`)
+//   return price + itemPrice;
+// }, 0);
+
+// console.log(result);
+        res.json(user)
+        // console.log('All Products');
+        console.log(user );
+    } catch (e) {
+        console.log(e);
+        
+    }
+
+};
+// total purchase amount
+const totalpurchaseamount = async (req,res) => {
+    try {  
+
+        const user = await purchaseModel.aggregate([
+            {
+                $unwind: "$medicine"
+              },
+              {
+                $group: {
+                  _id: 0,
+                  value: {
+                    $sum: { 
+                      $toDecimal: "$medicine.price",
+                      
+                    }
+                  }
+                }
+              },
+              {
+                $project: {
+                  _id: 0,
+                  totalPrice: "$value"
+                }
+              } ])
+        res.json(user)
+        // console.log('All Products');
+        console.log(user );
+    } catch (e) {
+        console.log(e);
+        
+    }
+
+};
+// today purchase amount
 const todaypurchaseamount = async (req,res) => {
     try {  
 
@@ -246,7 +317,9 @@ const todaypurchaseamount = async (req,res) => {
             $group: {
               _id: "$distributor.purchaseDate",
               value: {
-                $sum:"$medicine.price"
+                $sum:{
+                    "$toDecimal": "$medicine.price"
+                  }
               }
             }
           },
@@ -323,5 +396,7 @@ module.exports = {
     todaysale,
     todaypurchase,
     todaysaleamount,
-    todaypurchaseamount
+    todaypurchaseamount,
+    totalsaleamount,
+    totalpurchaseamount
 }
