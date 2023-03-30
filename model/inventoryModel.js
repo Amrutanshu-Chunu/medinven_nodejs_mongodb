@@ -5,7 +5,18 @@ const userSchema = mongoose.Schema({
    
     medicinename: String,
     stock: Number,
-    description: String
+    description: String,
+    info: String,
+    expDate: String,
+    company: String,
+    distributorId: String,
+    medicineId: String,
 });
 
 module.exports = mongoose.model("inventory",userSchema);
+
+//    medicineName;
+//    inventoryId;
+//    medicineDescription;
+//    info
+//    stock;

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const dotenv = require("dotenv");
 const app = express()
+const cors = require("cors");
 const productRouts = require("./router/router");
 const multer = require('multer');
 
@@ -19,6 +20,7 @@ mongoose.connect(process.env.URL,
     });
 
     app.use(express.json());
+    app.use(cors());
 
 //Route middleware
 app.use("/medInven",productRouts);

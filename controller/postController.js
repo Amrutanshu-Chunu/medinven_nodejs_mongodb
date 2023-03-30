@@ -69,9 +69,14 @@ console.log("Data Added.....");
 const add_inventory_Data = async (req,res) => {
 console.log("inside Post Function");
 const addData = new inventoryModel({
-  medicinename: req.body.medicinename,
-  stock: req.body.stock,
-  description : req.body.description,
+    medicinename: req.body.medicinename,
+    stock: req.body.stock,
+    description: req.body.description,
+    info: req.body.info,
+    expDate: req.body.expDate,
+    company: req.body.company,
+    distributorId: req.body.distributorId,
+    medicineId: req.body.medicineId,
 });
 const addValue = await addData.save();
 res.json(addValue);

@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
    
-    name: String,
-    phone: Number,
-    purchasedate: String,
-    gst: String,
+    distributorName: String,
+    distributorPhoneNumber : Number,
+    gstIn: String,
     invoiceNumber: String,
-    distributorid: String
+    purchaseDate: String,
+    distributorId: String,
 });
 
 module.exports = mongoose.model("distributors",userSchema);

@@ -23,6 +23,14 @@ const medicineSchema = mongoose.Schema({
      updatedBy: String,
      medicineImageURL: String,
      description: String,
+     quantity: Number,
+     discount: Number,
+     gst:Number,
+     batchcode:String,
+
+     
+    
+     //  instock;
 });
 
 module.exports = mongoose.model("medicine",medicineSchema);

@@ -23,11 +23,11 @@ router.get("/distributor",getcontroller.all_distributor_Data);
 router.get("/inventory",getcontroller.all_inventory_Data);
 router.get("/medicines",getcontroller.all_medicine_Data);
 router.get("/user",getcontroller.all_user_Data);
-router.get("/singleData:userId",getcontroller.singlel_Data);
+// router.get("/singleData:userId",getcontroller.singlel_Data);
 //post
 
 router.post("/upload",postcontroller.uploadimage);
-router.post("/cusstomer",postcontroller.add_customer_Data);
+router.post("/customer",postcontroller.add_customer_Data);
 router.post("/distributor",postcontroller.add_distributor_Data);
 router.post("/inventory",postcontroller.add_inventory_Data);
 // router.post("/medicine",postcontroller.all_medicine_Data);
