@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
     company: String,
     distributorId: String,
     medicineId: String,
+    distributorName: String
 });
 
 module.exports = mongoose.model("inventory",userSchema);

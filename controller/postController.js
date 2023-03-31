@@ -77,6 +77,7 @@ const addData = new inventoryModel({
     company: req.body.company,
     distributorId: req.body.distributorId,
     medicineId: req.body.medicineId,
+    distributorName: req.body.distributorName,
 });
 const addValue = await addData.save();
 res.json(addValue);
