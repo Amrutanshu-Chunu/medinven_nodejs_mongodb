@@ -131,19 +131,19 @@ console.log("Purchase Data Added.....");
 
 
 //edit a sigle data
-const edit_single_Data = async (req,res) => {
-    console.log("inside Post Function");
-    const edit_data = new salesModel({
-        name: req.body.name,
-        email: req.body.email,
-        age: req.body.age,
-        _id: res.body._id
-    });
-    const editValue = await edit_data.save();
-    res.json(editValue);
-    console.log("Data Added.....");
-    salesModel.findByIdAndUpdate({_id: req.params.userId},edit_data)
-};
+// const edit_single_Data = async (req,res) => {
+//     console.log("inside Post Function");
+//     const edit_data = new salesModel({
+//         name: req.body.name,
+//         email: req.body.email,
+//         age: req.body.age,
+//         userId: res.body..userI
+//     });
+//     const editValue = await edit_data.save();
+//     res.json(editValue);
+//     console.log("Data Added.....");
+//     salesModel.findByIdAndUpdate({_id: req.params.userId},edit_data)
+// };
 
 // delete a single data
 const delete_single_Data = (req,res) => {}
@@ -156,7 +156,7 @@ module.exports = {
    add_sale_Data,
    add_purchase_Data,
    add_user_Data,
-   edit_single_Data,
+  //  edit_single_Data,
    delete_single_Data,
    uploadimage,
 };

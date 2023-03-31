@@ -34,12 +34,13 @@ router.post("/inventory",postcontroller.add_inventory_Data);
 router.post("/user",postcontroller.add_user_Data);
 router.post("/sale",postcontroller.add_sale_Data);
 router.post("/purchase",postcontroller.add_purchase_Data);
-router.put("/update:userId",postcontroller.edit_single_Data);
+// router.put("/update:userId",postcontroller.edit_single_Data);
 router.delete("/delete:userId");
 //Search
 router.get("/purchase/search/:key",searchController.search_purchase_Name_PDate_Invoice);
 router.get("/purchase/search/phone/:key",searchController.search_purchase_Number);
 router.get("/purchase/medicine/search/:key",searchController.search_purchase_Medicine_name_batchcode_expDate);
+router.get("/sale/medicine/search/:key",searchController.search_sale_Medicine_name_batchcode_expDate);
 router.get("/sale/search/:key",searchController.search_sale_Customer_Name_SaleDate);
 router.get("/sale/search/phone/:key",searchController.search_customer_Number);
 

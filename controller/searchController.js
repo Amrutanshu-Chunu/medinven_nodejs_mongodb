@@ -35,7 +35,7 @@ const search_purchase_Medicine_name_batchcode_expDate = async(req,res) => {
             {"medicine.medicineName":  req.params.key},
             {"medicine.batchcode":  req.params.key},
             {"medicine.expDate":  req.params.key},
-           
+
         ]}); 
         res.json(user);
     
@@ -46,7 +46,7 @@ const search_purchase_Medicine_name_batchcode_expDate = async(req,res) => {
 };
 const search_sale_Medicine_name_batchcode_expDate = async(req,res) => {
     try {
-        const user = await purchaseModel.find({"$or":[
+        const user = await salesModel.find({"$or":[
             {"medicine.medicineName":  req.params.key},
             {"medicine.batchcode":  req.params.key},
             {"medicine.expDate":  req.params.key},
@@ -94,5 +94,6 @@ module.exports = {
     search_purchase_Number,
     search_sale_Customer_Name_SaleDate,
     search_customer_Number,
-    search_purchase_Medicine_name_batchcode_expDate
+    search_purchase_Medicine_name_batchcode_expDate,
+    search_sale_Medicine_name_batchcode_expDate,
 }
